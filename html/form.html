@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form name="myForm" action="" onsubmit="validator()" method="POST">
+        Family Name: <input name="fname" type="text">
+        <span class="validate_msg"></span>
+        Given Name: <input name="gname" type="text">
+        <span class="validate_msg"></span>
+        Age: <input name="age" type="text">
+        <span class="validate_msg"></span>
+        Gender: <input name="gender" type="text">
+        <span class="validate_msg"></span>
+        Email: <input name="email" type="email">
+        <span class="validate_msg"></span>
+        Contact: +61 <input name="phone" type="number">
+        <span class="validate_msg"></span>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="../js/form.js" ></script>
+</body>
+</html>

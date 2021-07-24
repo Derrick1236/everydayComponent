@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>焦点轮播图</title>
+    <style type="text/css">
+        *{ margin: 0; padding: 0; text-decoration: none;}
+        body { padding: 20px;}
+        #container { width: 320px; height: 80px; border: 3px solid #333; overflow: hidden; position: relative;}
+        #list { width: 4200px; height: 400px; position: absolute; z-index: 1;}
+        #list img { float: left;}
+        #buttons { position: absolute; height: 10px; width: 136px; z-index: 2; bottom: 2px; left: 100px;}
+        #buttons span { cursor: pointer; float: left; border: 1px solid #fff; width: 10px; height: 10px; border-radius: 50%; background: #333; margin-right: 5px;}
+        #buttons .on {  background: orangered;}
+        .arrow { cursor: pointer; display: none; line-height: 20px; text-align: center; font-size: 20px; font-weight: bold; width: 20px; height: 20px;  position: absolute; z-index: 2; top: 30px; background-color: RGBA(0,0,0,.3); color: #fff;}
+        .arrow:hover { background-color: RGBA(0,0,0,.7);}
+        #container:hover .arrow { display: block;}
+        #prev { left: 5px;}
+        #next { right: 5px;}
+    </style>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var container = document.getElementById('container');
+            var list = document.getElementById('list');
+            var buttons = document.getElementById('buttons').getElementsByTagName('span');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var index = 1;
+            var len = 8;
+            //
+            var animated = false;
+            var interval = 3000;
+            var timer;
+            function animate (offset) {
+               //如果偏移量为0，则不进行轮播
+                if (offset == 0) {
+                    return;
+                }
+                animated = true;
+                var time = 300;
+                var inteval = 10;
+                var speed = offset/(time/inteval);
+                var left = parseInt(list.style.left) + offset;
+                //go()函数是开始轮播
+                var go = function (){
+                    if ( (speed > 0 && parseInt(list.style.left) < left) || (speed < 0 && parseInt(list.style.left) > left)) {
+                        list.style.left = parseInt(list.style.left) + speed + 'px';
+                        setTimeout(go, inteval);
+                    }
+                    else {
+                        list.style.left = left + 'px';
+                        //如果为第一幅图片，再按<<的按钮，直接跳到最后一个图片
+                        if(left>-80){
+                            list.style.left = -80 * len + 'px';
+                        }
+                        //如果为最后一幅图片，再按>>的按钮，直接跳到第一个图片
+                        if(left<(-80 * len)) {
+                            list.style.left = '-80px';
+                        }
+                        animated = false;
+                    }
+                }
+                go();
+            }
+         //小圆点的设计
+            function showButton() {
+                for (var i = 0; i < buttons.length ; i++) {
+                    if( buttons[i].className == 'on'){
+                        buttons[i].className = '';
+                        break;
+                    }
+                }
+                buttons[index - 1].className = 'on';
+            }
+         //自动播放，设置定时器，相当于没3秒点击>>按钮
+            function play() {
+                timer = setTimeout(function () {
+                    next.onclick();
+                    play();
+                }, interval);
+            }
+        //清除定时器
+            function stop() {
+                clearTimeout(timer);
+            }
+
+            next.onclick = function () {
+                if (animated) {
+                    return;
+                }
+                if (index == 8) {
+                    index = 1;
+                }
+                else {
+                    index += 1;
+                }
+                animate(-80);
+                showButton();
+            }
+            //点击向前的箭头，执行animate函数，翻页
+            prev.onclick = function () {
+                if (animated) {
+                    return;
+                }
+                if (index == 1) {
+                    index = 8;
+                }
+                else {
+                    index -= 1;
+                }
+                animate(80);
+                showButton();
+            }
+        // 图片滚动，小圆点要相应的变化
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function () {
+                    if (animated) {
+                        return;
+                    }
+                    if(this.className == 'on') {
+                        return;
+                    }
+                    var myIndex = parseInt(this.getAttribute('index'));
+                    var offset = -80 * (myIndex - index);
+
+                    animate(offset);
+                    index = myIndex;
+                    showButton();
+                }
+            }
+            //鼠标放到轮播图上，动画停止
+            container.onmouseover = stop;
+            //鼠标移开，动画开始
+            container.onmouseout = play;
+
+            play();
+
+        }
+    </script>
+</head>
+<body>
+
+<div id="container">
+    <div id="list" style="left: -80px;">
+        <img src="img/8.gif" alt="8"/>
+        <img src="img/1.gif" alt="1"/>
+        <img src="img/2.gif" alt="2"/>
+        <img src="img/3.gif" alt="3"/>
+        <img src="img/4.gif" alt="4"/>
+        <img src="img/5.gif" alt="5"/>
+        <img src="img/6.gif" alt="6"/>
+        <img src="img/7.gif" alt="7"/>
+        <img src="img/8.gif" alt="8"/>
+        <img src="img/1.gif" alt="1"/>
+        <img src="img/2.gif" alt="2"/>
+        <img src="img/3.gif" alt="3"/>
+    </div>
+    <div id="buttons">
+        <span index="1" class="on"></span>
+        <span index="2"></span>
+        <span index="3"></span>
+        <span index="4"></span>
+        <span index="5"></span>
+        <span index="6"></span>
+        <span index="7"></span>
+        <span index="8"></span>
+    </div>
+    <a href="javascript:;" id="prev" class="arrow"><</a>
+    <a href="javascript:;" id="next" class="arrow">></a>
+</div>
+
+</body>
+</html>

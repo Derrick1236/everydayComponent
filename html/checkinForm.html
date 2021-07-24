@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check in</title>
+    <link rel="stylesheet" href="../css/checkin.css">
+</head>
+<body>
+    <h1>Welcome to our home!
+        <br><span>Please check in for covid safety</span><br>
+        <span>Thanks!</span>
+    </h1>
+    <div class="container">
+        <div class="form_wrapper">
+            <form action="./successful.html" method="post">
+                <label for="first_name" class="text_label">
+                    First Name:
+                </label><br>
+                <input type="text" id="first_name" name="first_name" class="basic_info" placeholder="Your first name..."><br><br>
+                <label for="last_name" class="text_label">
+                    Last Name: 
+                </label><br>
+                <input type="text" name="last_name" id="last_name" class="basic_info" placeholder="Your last name..."><br><br>
+                <label for="phone_num" class="text_label">
+                    Phone Number: 
+                </label><br>
+                <input type="text" name="phone_num" id="phone_num" class="basic_info" placeholder="Your phone number..."><br><br>
+                <input type="submit" value="Submit" class="submit_btn">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

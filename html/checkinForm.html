@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check in</title>
     <link rel="stylesheet" href="../css/checkin.css">
+    <script type="text/javascript" src="../js/validator.js"></script>
 </head>
 <body>
     <h1>Welcome to our home!
@@ -14,15 +15,17 @@
     </h1>
     <div class="container">
         <div class="form_wrapper">
-            <form action="./successful.html" method="post">
+            <form name="checkin-form" action="./successful.html" onsubmit="return validator();" method="post">
                 <label for="first_name" class="text_label">
                     First Name:
                 </label><br>
                 <input type="text" id="first_name" name="first_name" class="basic_info" placeholder="Your first name..."><br><br>
+                <span id="fname_msg" class="validate_msg"></span><br><br>
                 <label for="last_name" class="text_label">
                     Last Name: 
                 </label><br>
                 <input type="text" name="last_name" id="last_name" class="basic_info" placeholder="Your last name..."><br><br>
+                <span id="lname_msg" class="validate_msg"></span><br><br>
                 <label for="phone_num" class="text_label">
                     Phone Number: 
                 </label><br>
